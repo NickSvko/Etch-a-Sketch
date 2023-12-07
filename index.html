@@ -5,11 +5,20 @@
     <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>etch-a-sketch</title>
 </head>
 <body>
-    <div class="grid">
-        
+    <div class="header"></div>
+    <div class="main">
+        <div class="settings">
+            <input type="color" id="colorPicker" value="0x0000ff">
+            <button id="drawBtn">Draw</button>
+            <button id="EraseBtn">Erase</button>
+            <button id="clearBtn">Clear</button>
+            <input type="range" id="sizeSlider" value="16" min="1" max="64">
+        </div>
+        <div class="grid"></div>
     </div>
+    <div class="footer"> Copyright © Nick Savchenko 2023</div>
 </body>
 </html>
