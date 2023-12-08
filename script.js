@@ -1,6 +1,6 @@
 const DEFAULT_GRID_SIZE = 16;
-const PRESSED_BACKGROUND = 'rgb(110, 113, 115)';
-const RELEASE_BACKGROUND  = 'rgb(244, 240, 234)';
+const PRESSED_BACKGROUND = '#2c3e50';
+const RELEASE_BACKGROUND  = '#f0f0f0';
 const PRESSED_COLOR = 'white';
 const RELEASE_COLOR = 'black';
 const BOARD_COLOR = 'white';
