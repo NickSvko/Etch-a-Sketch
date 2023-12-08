@@ -1,4 +1,10 @@
 let gridSize = 16;
+const PRESSED_BACKGROUND = 'rgb(110, 113, 115)';
+const RELEASE_BACKGROUND  = 'rgb(244, 240, 234)';
+const PRESSED_COLOR = 'white';
+const RELEASE_COLOR = 'black';
+
+
 const grid = document.querySelector('.grid');
 const drawButton = document.querySelector('#drawBtn');
 const eraseButton = document.querySelector('#eraseBtn');
@@ -14,17 +20,30 @@ document.body.onmouseup = () => (mouseDown = false);
 
 
 createGrid(gridSize);
+const squares = document.querySelectorAll('.column');
+drawButton.addEventListener('click', draw);
 drawButton.addEventListener('click', draw);
 
 
 function draw() {
+    press(drawButton);
+    release(eraseButton);
     let squares = document.querySelectorAll('.column');
     squares.forEach(square => square.addEventListener('mouseover', () => colorSquare(square)));
 }
 
+function press(button) {
+    button.style.color = PRESSED_COLOR;
+    button.style.backgroundColor = PRESSED_BACKGROUND;
+}
+
+function release(button) {
+    button.style.color = RELEASE_COLOR;
+    button.style.backgroundColor = RELEASE_BACKGROUND;
+}
+
 function initializeEvents(square) {
     square.addEventListener('mouseover', () => colorSquare(square));
-    square.addEventListener('onmouseup')
 }
 
 function colorSquare(square) {
