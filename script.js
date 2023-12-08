@@ -1,6 +1,13 @@
-const GRID_SIZE = 16;
+let gridSize = 16;
 const grid = document.querySelector('.grid');
-createGrid(GRID_SIZE);
+const drawButton = querySelector('#drawBtn');
+const eraseButton = querySelector('#eraseBtn');
+const clearButton = querySelector('#ClearBtn');
+const colorPicker = querySelector('#colorPicker');
+const sizeSlider = querySelector('#sizeSlider');
+const sizeDisplay = querySelector('#sizeDisplay');
+
+createGrid(gridSize);
 
 
 function createGrid(size) {
@@ -8,7 +15,7 @@ function createGrid(size) {
     for(let i = 1; i <= size; i++) {
         line = document.createElement('div');
         line.setAttribute('class', `line l${i}`)
-        createColumns(line, GRID_SIZE);
+        createColumns(line, size);
         grid.appendChild(line);
     }
 }
@@ -22,3 +29,5 @@ function createColumns(line, size) {
         line.appendChild(column);
     }
 }
+
+
