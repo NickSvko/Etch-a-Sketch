@@ -1,21 +1,21 @@
 const GRID_SIZE = 16;
 const grid = document.querySelector('.grid');
-createGrid();
+createGrid(GRID_SIZE);
 
 
-function createGrid() {
+function createGrid(size) {
     let line;
-    for(let i = 1; i <= GRID_SIZE; i++) {
+    for(let i = 1; i <= size; i++) {
         line = document.createElement('div');
         line.setAttribute('class', `line l${i}`)
-        createColumns(line);
+        createColumns(line, GRID_SIZE);
         grid.appendChild(line);
     }
 }
 
-function createColumns(line) {
+function createColumns(line, size) {
     let column;
-    for(i = 1; i <= GRID_SIZE; i++) {
+    for(i = 1; i <= size; i++) {
         column = document.createElement('div');
         column.setAttribute('class',``);
         column.setAttribute('class',  `column c${i}`)
