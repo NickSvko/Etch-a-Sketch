@@ -1,4 +1,4 @@
-let gridSize = 16;
+const DEFAULT_GRID_SIZE = 16;
 const PRESSED_BACKGROUND = 'rgb(110, 113, 115)';
 const RELEASE_BACKGROUND  = 'rgb(244, 240, 234)';
 const PRESSED_COLOR = 'white';
@@ -6,6 +6,7 @@ const RELEASE_COLOR = 'black';
 const BOARD_COLOR = 'white';
 
 
+let mouseDown = false;
 const grid = document.querySelector('.grid');
 const drawButton = document.querySelector('#drawBtn');
 const eraseButton = document.querySelector('#eraseBtn');
@@ -13,41 +14,65 @@ const clearButton = document.querySelector('#clearBtn');
 const colorPicker = document.querySelector('#colorPicker');
 const sizeSlider = document.querySelector('#sizeSlider');
 const sizeDisplay = document.querySelector('#sizeDisplay');
-
-/* Defines whether the mouse is currently pressed to know whether to make changes to the board */
-let mouseDown = false;
-document.body.onmousedown = () => (mouseDown = true);
-document.body.onmouseup = () => (mouseDown = false);
+const webPage = document.querySelector('body');
 
 
-createGrid(gridSize);
-const squares = document.querySelectorAll('.column');
-drawButton.addEventListener('click', drawOnBoard);
-eraseButton.addEventListener('click', eraseFromBoard);
-clearButton.addEventListener('click', clearBoard);
+createGrid(DEFAULT_GRID_SIZE);
+
+webPage.addEventListener('mousedown', () => mouseDown=true);
+webPage.addEventListener('mouseup', () => mouseDown=false);
+drawButton.addEventListener('click', drawButtonPressed);
+eraseButton.addEventListener('click', eraseButtonPressed);
+clearButton.addEventListener('click', clearButtonPressed);
+sizeSlider.addEventListener('input', changeGridSize);
 
 
-function drawOnBoard() {
+function changeGridSize() {
+    let size = sizeSlider.value;
+    sizeDisplay.textContent = `${size} x ${size}`;
+    removeGridSquares();
+    createGrid(size);
+    releaseButtons(eraseButton, drawButton);
+}
+
+
+function removeGridSquares() {
+    let child = grid.lastElementChild;
+    while(child) {
+        grid.removeChild(child);
+        child = grid.lastElementChild;
+    }
+}
+
+
+function drawButtonPressed() {
     pressButton(drawButton);
     releaseButtons(eraseButton);
+    let squares = document.querySelectorAll('.column');
     squares.forEach(square => square.addEventListener('mouseover', () => colorSquare(square)));
 }
 
-function eraseFromBoard() {
+
+function eraseButtonPressed() {
     pressButton(eraseButton);
     releaseButtons(drawButton);
+    let squares = document.querySelectorAll('.column');
     squares.forEach(square => square.addEventListener('mouseover', () => eraseSquare(square)));
 }
 
-function clearBoard() {
+
+function clearButtonPressed() {
     releaseButtons(drawButton, eraseButton);
+    let squares = document.querySelectorAll('.column');
     squares.forEach(square => square.style.backgroundColor = BOARD_COLOR);
 }
+
 
 function pressButton(button) {
     button.style.color = PRESSED_COLOR;
     button.style.backgroundColor = PRESSED_BACKGROUND;
 }
+
 
 function releaseButtons(...buttons) {
     buttons.forEach(button => {
@@ -56,9 +81,11 @@ function releaseButtons(...buttons) {
     })
 }
 
+
 function initializeEvents(square) {
     square.addEventListener('mouseover', () => colorSquare(square));
 }
+
 
 function colorSquare(square) {
     if(mouseDown) {
@@ -73,6 +100,7 @@ function eraseSquare(square) {
     }
 }
 
+
 function createGrid(size) {
     let line;
     for(let i = 1; i <= size; i++) {
@@ -83,6 +111,7 @@ function createGrid(size) {
     }
 }
 
+
 function createColumns(line, size) {
     let column;
     for(i = 1; i <= size; i++) {
@@ -92,5 +121,3 @@ function createColumns(line, size) {
         line.appendChild(column);
     }
 }
-
-
